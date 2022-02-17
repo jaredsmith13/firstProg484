@@ -13,8 +13,8 @@ namespace Sim
         int n = 2;                   // number of states
         private double[] x;          // array of states
         private double[] f;          // right side of equation evaluated
-        // private double [] y;         // holds different k values
-        // private double [] z;         // updates with time step and stores new value
+        private double [] y;         // holds different k values
+        private double [] z;         // updates with time step and stores new value
         //----------------------------------------------------------------------------------------------------
         // constructor
         //----------------------------------------------------------------------------------------------------
@@ -22,8 +22,8 @@ namespace Sim
         {
             x = new double[n];
             f = new double[n];
-            // y = new double[4];
-            // z = new double[n];
+            y = new double[4];
+            z = new double[n];
 
             x[0] = 1.0;     // sets first entry of x array
             x[1] = 0.0;     // sets second entry of x array
@@ -45,20 +45,20 @@ namespace Sim
             }
 
             // RK4 Method
-            // i = 0;
-            // while i < n
-            // {
-            //     y[0] = rhsFunc(x[i],f[i]);
-            //     z = x[i] + y[0] * 0.5 *dt;
-            //     y[1] = rhsFunc(x[i], f[i] + 0.5 * dt);
-            //     z = x[i] + y[1] * 0.5 * dt;
-            //     y[2] = rhsFunc(x[i], f[i] + 0.5 * dt);
-            //     z = x[i] + y[2] * dt;
-            //     y[3] = rhsFunc(x[i], f[i] + dt);
-            //     x[i+1] = x[i] + (0.1667 * y[0] + 0.3333 * y[1] + 0.3333 * y[2] + 0.1667 * y[3])*dt;
+            i = 0;
+            while i < n
+            {
+                y[0] = rhsFunc(x[i],f[i]);
+                z = x[i] + y[0] * 0.5 *dt;
+                y[1] = rhsFunc(x[i], f[i] + 0.5 * dt);
+                z = x[i] + y[1] * 0.5 * dt;
+                y[2] = rhsFunc(x[i], f[i] + 0.5 * dt);
+                z = x[i] + y[2] * dt;
+                y[3] = rhsFunc(x[i], f[i] + dt);
+                x[i+1] = x[i] + (0.1667 * y[0] + 0.3333 * y[1] + 0.3333 * y[2] + 0.1667 * y[3])*dt;
 
-            //     i += 1;
-            // }
+                i += 1;
+            }
         
         }
 
